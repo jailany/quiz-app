@@ -1,0 +1,17 @@
+.heroSection{
+    position: fixed;
+    width: 65%;
+    height: 100%;
+    background: #f3f3f3;
+    background: linear-gradient(#903e7700, #000), url(/quiz.jpg) no-repeat;
+    background-size: cover;
+}
+
+.heroText{
+    position: absolute;
+    bottom: 3em;
+    color: #fff;
+    font-size: 2em;
+    left: 1em;
+    font-weight: 100;
+}

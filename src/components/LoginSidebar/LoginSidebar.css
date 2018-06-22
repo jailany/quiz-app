@@ -1,0 +1,38 @@
+.LoginSidebar{
+    position: fixed;
+    width: 35%;
+    right: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.LoginForm{
+    width: 100%;
+    padding: 0 3em;
+    box-sizing: border-box;
+}
+
+.inputField{
+    width: 100%;
+    padding: 1em;
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid #111;
+    color: #333;
+    margin: 2em 0;
+    font-size: 1em;
+    font-weight: 100;
+}
+
+.button{
+    background: #00897B;
+    border: none;
+    padding: 0.75em 1em;
+    color: #fff;
+    font-size: 1em;
+    font-size: 1em;
+    font-weight: 100;
+}
