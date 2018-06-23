@@ -7,3 +7,48 @@ html, body{
   width: 100%;
   height: auto;
 }
+
+.shadow{
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+
+.flex{
+  display: flex;
+}
+
+.flexRow{
+  flex-direction: row;
+}
+
+.flexColumn{
+  flex-direction: column;
+}
+
+.flexGrow0{
+  flex-grow: 0;
+}
+
+.flexGrow1{
+  flex-grow: 1;
+}
+
+.flexGrow2{
+  flex-grow: 2;
+}
+
+.flexGrow3{
+  flex-grow: 3;
+}
+
+.flexGrow4{
+  flex-grow: 4;
+}
+
+.flexColumnCenter{
+  flex-direction: column;
+  justify-content: center;
+}
+
+.relative{
+  position: relative;
+}

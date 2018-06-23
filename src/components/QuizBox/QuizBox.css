@@ -1,0 +1,30 @@
+.quizBox{
+    margin: 2em 4em;
+    background: #fff;
+    height: calc(100vh - 10em);
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+.rightContent{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.nextButton{
+    padding: 0.5em 1.25em;
+    box-sizing: border-box;
+    background: #00887a;
+    color: #fff;
+    margin: 0 1em;
+    text-transform: uppercase;
+    box-shadow: none;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.nextButton:hover{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    transition: all 0.2s ease-in-out;
+}

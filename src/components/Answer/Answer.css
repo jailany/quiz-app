@@ -1,0 +1,24 @@
+.answerItemBlock{
+    width: 50%;
+}
+
+.answerItem{
+    padding: 1em;
+    font-weight: 500;
+    margin: 1em;
+    color: #636363;
+    letter-spacing: 0.4px;
+    background-color: #f3f3f3;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.answerItem:hover{
+    background-color: #e2e2e2;
+    transition: all 0.2s ease-in-out;
+}
+
+.answerItem.selectedAnswer{
+    background: #FFEB3B;
+    transition: all 0.2s ease-in-out;
+}
