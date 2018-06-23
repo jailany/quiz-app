@@ -1,6 +1,6 @@
 ## Quiz-App
 
-The application allows the user to take a quiz with multiple choice questions after logging in. The application is developed using reactjs as a UI framework.
+The application allows the user to take a quiz with multiple choice questions after logging in. The application is developed using reactjs as the UI framework.
 
 ### Live Server
 
