@@ -7,6 +7,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 448px;
+    background: #fff;
 }
 
 .LoginForm{

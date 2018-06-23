@@ -1,6 +1,7 @@
 html, body{
   font-family: 'Quicksand', sans-serif;
   font-size: 14px;
+  min-width: 1280px;
 }
 
 .imgResponsive{

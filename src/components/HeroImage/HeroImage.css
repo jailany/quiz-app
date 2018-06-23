@@ -5,6 +5,7 @@
     background: #f3f3f3;
     background: linear-gradient(#903e7700, #000), url(/quiz.jpg) no-repeat;
     background-size: cover;
+    min-width: 832px;
 }
 
 .heroText{
