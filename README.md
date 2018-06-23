@@ -21,17 +21,15 @@ Follow the steps given below to run the code in local enviroment
 
 - Clone the repository
 - Install dependencies 
-...
 
+...
 npm install
-
 ...
+
 - Run the npm script
 
 ...
-
 npm start
-
 ...
 
 ### Dependencies
