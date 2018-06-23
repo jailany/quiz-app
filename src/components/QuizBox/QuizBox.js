@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './QuizBox.css';
 import Timer from '../Timer/Timer';
 import Question from '../Question/Question';
+import SnackBar from 'react-material-snackbar';
 
 class QuizBox extends Component{
 
@@ -81,7 +82,8 @@ class QuizBox extends Component{
                 }
             ],
             currentQuestion : 1,
-            userAnswers : []
+            userAnswers : [],
+            requiredError : false
         };
 
         console.log(this.state);
@@ -89,7 +91,12 @@ class QuizBox extends Component{
 
     nextQuestion() {
         if(this.state.currentQuestion < 3){
-            this.setState({currentQuestion : this.state.currentQuestion+1});
+            if(this.checkIfAnswered()){
+                this.setState({currentQuestion : this.state.currentQuestion+1});
+                this.setState({requiredError : false});
+            } else {
+                this.setState({requiredError : true});
+            }
         }
     }
 
@@ -100,10 +107,14 @@ class QuizBox extends Component{
     }
 
     answerSelected(questionId, answerId) {
+        this.setState({requiredError : false});
         const tempArray  = [...this.state.userAnswers];
         tempArray[questionId-1] = answerId;
         this.setState({userAnswers : tempArray});
-        
+    }
+
+    checkIfAnswered() {
+        return (this.state.userAnswers[this.state.currentQuestion-1]);
     }
 
     render() {
@@ -118,9 +129,12 @@ class QuizBox extends Component{
                 </div>
 
                 <div className="flexGrow1 rightContent">
-                {(this.state.currentQuestion > 1) ? <a className="nextButton" onClick={this.previousQuestion.bind(this)}>Previous</a> : ''}
+                    {(this.state.currentQuestion > 1) ? <a className="nextButton" onClick={this.previousQuestion.bind(this)}>Previous</a> : ''}
                     {(this.state.currentQuestion < 3) ? <a className="nextButton" onClick={this.nextQuestion.bind(this)}>Next</a> : ''}
+                    {(this.state.currentQuestion === 3) ? <a className="nextButton" >Submit</a> : ''}
                 </div>
+
+                <SnackBar show={this.state.requiredError} timer={3000}>Please answer the current question to continue.</SnackBar>
            </div>
         )
     }
