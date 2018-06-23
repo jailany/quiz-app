@@ -25,7 +25,7 @@ class LoginSidebar extends Component{
     loginUser(e) {
         const _this = this;
         
-        this.setState({loginSnackBar : true, loginSnackMessage: 'Logging in..'});
+        this.setState({loginSnackBar : true, loginSnackMessage: 'Simulating login, please wait..!'});
 
         if (this.state.username === 'jai' && this.state.password === 'pass') {
             _this.timeout = setTimeout(() => {

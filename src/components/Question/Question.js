@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
 import './Question.css';
 import Answer from '../Answer/Answer';
+import SnackBar from 'react-material-snackbar';
 
 class Question extends Component{
+    constructor(){
+        super();
 
+        this.state = {
+            invalidAnswer : false
+        }
+    }
 
     validateAnswer(answerId) {
-        return (this.props.data.answer_id === answerId);
+        if(this.props.data.answer_id === answerId){
+            this.setState({invalidAnswer : false});
+            return true;
+        } else {
+            this.setState({invalidAnswer : true});
+            return false;
+        }
     }
 
     render() {
@@ -23,6 +36,7 @@ class Question extends Component{
                 <div className="answersContainer">
                     {answersItems}
                 </div>
+                <SnackBar show={this.state.invalidAnswer} timer={2000}>Invalid Answer.</SnackBar>
             </div>
         )
     }

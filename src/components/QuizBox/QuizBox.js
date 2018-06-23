@@ -49,9 +49,20 @@ class QuizBox extends Component{
         return (this.state.userAnswers[this.state.currentQuestion-1]);
     }
 
-    completeTest(){
+    completeTest() {
         if(!this.state.isTestComplete){
             this.processAnswers();
+        }
+    }
+
+    submitTest() {
+        if(this.checkIfAnswered()){
+            this.setState({requiredError : false});
+            if(!this.state.isTestComplete){
+                this.processAnswers();
+            }
+        } else {
+            this.setState({requiredError : true});
         }
     }
 
@@ -127,7 +138,7 @@ class QuizBox extends Component{
                         <div className="flexGrow1 rightContent">
                             {(this.state.currentQuestion > 1) ? <a className="nextButton" onClick={this.previousQuestion.bind(this)}>Previous</a> : ''}
                             {(this.state.currentQuestion < 3) ? <a className="nextButton" onClick={this.nextQuestion.bind(this)}>Next</a> : ''}
-                            {(this.state.currentQuestion === 3) ? <a className="nextButton" onClick={this.completeTest.bind(this)}>Submit</a> : ''}
+                            {(this.state.currentQuestion === 3) ? <a className="nextButton" onClick={this.submitTest.bind(this)}>Submit</a> : ''}
                         </div>
 
                         <SnackBar show={this.state.requiredError} timer={3000}>Please answer the current question to continue.</SnackBar>
