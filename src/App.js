@@ -17,7 +17,7 @@ class App extends Component {
   logoutUser() {
     this.setState({isLoggedIn : false});
   }
-
+  
   render() {
     return (
       <div>
