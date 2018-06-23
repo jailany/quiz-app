@@ -28,12 +28,17 @@ class LoginSidebar extends Component{
         this.setState({loginSnackBar : true, loginSnackMessage: 'Logging in..'});
 
         if (this.state.username === 'jai' && this.state.password === 'pass') {
-            setTimeout(() => {
+            _this.timeout = setTimeout(() => {
+                this.setState({loginSnackBar : false, loginSnackMessage: ''});
                 _this.props.login();
             }, 3000);
         } else {
             this.setState({loginSnackBar : true, loginSnackMessage: 'Invalid Username and Password'});
         }
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
     }
 
     render() {
@@ -50,7 +55,7 @@ class LoginSidebar extends Component{
                         <button type="submit" className="button submitButton" value="Login" onClick={this.loginUser.bind(this)}>Login</button>
                     </div>
                 </div>
-                <SnackBar show={this.state.loginSnackBar} timer={3000}>{this.state.loginSnackMessage}</SnackBar>
+                <SnackBar show={this.state.loginSnackBar} timer={2000}>{this.state.loginSnackMessage}</SnackBar>
             </div>
         )
     };

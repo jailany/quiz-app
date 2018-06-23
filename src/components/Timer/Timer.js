@@ -8,30 +8,44 @@ class Timer extends Component{
         this.state = {
             seconds : '0',
             minutes : '0',
-            durationInMinutes : 0.1
-        }
+            durationInMinutes : 0.2
+        };
     }
 
     timerComplete(){
         this.props.completeTest();
     }
 
-    componentDidMount() {
+    startTimer() {
         const currentDate = new Date();
-        const target = new Date(currentDate.getTime() + this.state.durationInMinutes*60000).getTime();
+        const target = new Date(currentDate.getTime() + this.props.durationInMinutes*60000).getTime();
         const _this = this;
-        const x = setInterval(() => {
+        _this.interval = setInterval(() => {
             const now = new Date().getTime();
             const diff = target - now;
             const seconds = Math.floor((diff % (1000 * 60)) / 1000), minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             _this.setState({seconds : seconds, minutes : minutes});
 
             if(diff <= 1000) {
-                clearInterval(x);
+                clearInterval(_this.interval);
                 _this.timerComplete();
             }
-        }, 500);        
+        }, 500); 
     }
+
+    stopTimer() {
+        clearInterval(this.interval);
+    }
+
+    componentDidMount() {
+        this.startTimer();
+    }
+
+    componentWillUnmount(){
+        this.stopTimer();
+    }
+
+
 
     render() {
         return (

@@ -3,12 +3,16 @@ import './Header.css';
 
 class Header extends Component{
 
+    logoutUser(){
+        this.props.logout();
+    }
+
     render() {
         return (
             <header>
                 <div className="logo">Quiz-App</div>
                 <div className="logoutArea">
-                    <button className="logoutButton">Logout</button>
+                    <button className="logoutButton" onClick={this.logoutUser.bind(this)}>Logout</button>
                 </div>
             </header>
         )

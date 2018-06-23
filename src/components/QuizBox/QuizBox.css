@@ -4,6 +4,7 @@
     height: calc(100vh - 10em);
     padding: 1em;
     box-sizing: border-box;
+    overflow: auto;
 }
 
 .rightContent{
@@ -38,9 +39,15 @@
     color: #636363;
 }
 
+.infoContent{
+    display: block
+}
+
 .infoPanel{
-    width: 100%;
+    float: left;
+    width: 29%;
     padding: 0.5em;
+    margin: 0.5em;
 }
 
 .infoTitle{
@@ -90,4 +97,11 @@
 
 .questionResultItem > p.wrongAnswer{
     background: #E53935;
+}
+
+.startAgainSection{
+    padding: 3em 3em 2em 3em;
+    text-align: center;
+    border-top: 2px solid #ccc;
+    margin-top: 2em;
 }

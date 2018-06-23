@@ -3,6 +3,7 @@ import './QuizBox.css';
 import Timer from '../Timer/Timer';
 import Question from '../Question/Question';
 import SnackBar from 'react-material-snackbar';
+import { BarChart } from 'react-easy-chart';
 
 class QuizBox extends Component{
 
@@ -18,8 +19,6 @@ class QuizBox extends Component{
             correctAnswers : 0,
             processedResults : []
         };
-
-        console.log(this.state);
     }
 
     nextQuestion() {
@@ -51,8 +50,9 @@ class QuizBox extends Component{
     }
 
     completeTest(){
-        console.log("test complete");
-        this.processAnswers();
+        if(!this.state.isTestComplete){
+            this.processAnswers();
+        }
     }
 
     processAnswers() {
@@ -91,6 +91,17 @@ class QuizBox extends Component{
         return text;
     }
 
+    startOver(){
+        this.setState({
+            currentQuestion : 1,
+            userAnswers : [],
+            requiredError : false,
+            isTestComplete : false,
+            correctAnswers : 0,
+            processedResults : []
+        })
+    }
+
     
     render() {
 
@@ -104,50 +115,84 @@ class QuizBox extends Component{
             )
         });
 
+        const quiz = <div className={this.state.isTestComplete ? 'quizBox shadow flex flexColumn hidden' : 'quizBox shadow flex flexColumn '}>
+                        <div className="flexGrow1 rightContent">
+                            <Timer durationInMinutes={3} completeTest={this.completeTest.bind(this)} />
+                        </div>
+
+                        <div className="flexGrow4 flex flexColumnCenter">
+                            <Question selected={this.state.userAnswers[this.state.currentQuestion-1]} answerSelected={this.answerSelected.bind(this)} data={this.state.questions[this.state.currentQuestion-1]} />
+                        </div>
+
+                        <div className="flexGrow1 rightContent">
+                            {(this.state.currentQuestion > 1) ? <a className="nextButton" onClick={this.previousQuestion.bind(this)}>Previous</a> : ''}
+                            {(this.state.currentQuestion < 3) ? <a className="nextButton" onClick={this.nextQuestion.bind(this)}>Next</a> : ''}
+                            {(this.state.currentQuestion === 3) ? <a className="nextButton" onClick={this.completeTest.bind(this)}>Submit</a> : ''}
+                        </div>
+
+                        <SnackBar show={this.state.requiredError} timer={3000}>Please answer the current question to continue.</SnackBar>
+                    </div>;
+
+        const result = <div className={this.state.isTestComplete ? 'quizBox shadow flex flexColumn' : 'quizBox shadow flex flexColumn hidden'} >
+                            <h4 className="resultTitle">Quiz Results</h4>
+
+                            <h5 className="sectionTitle">Question details</h5>
+
+                            <div className="questionResultBlock">
+                            {resultSet}
+                            </div>
+                            <hr/>
+                            <h5 className="sectionTitle">Answer Stats</h5>
+
+                            <div className=" infoContent">
+                                <div className="infoPanel shadow">
+                                    <p className="infoTitle">No. of Questions</p>
+                                    <p className="infoText">{this.state.questions.length}</p>
+                                </div>
+                                <div className="infoPanel shadow">
+                                    <p className="infoTitle">No. of Correct Answers</p>
+                                    <p className="infoText">{this.state.correctAnswers}</p>
+                                </div>
+                                <div className="infoPanel shadow">
+                                    <p className="infoTitle">No. of Wrong Answers</p>
+                                    <p className="infoText">{this.state.questions.length - this.state.correctAnswers}</p>
+                                </div>
+                            </div>
+
+                            <hr/>
+                            <h5 className="sectionTitle">Answer Chart</h5>
+                            <BarChart
+                                axisLabels={{x: 'Variation', y: 'Count'}}
+                                axes
+                                colorBars
+                                height={400}
+                                width={400}
+                                data={[
+                                {
+                                    x: 'Total No. of Questions',
+                                    y: this.state.questions.length
+                                },
+                                {
+                                    x: 'Correct Answers',
+                                    y: this.state.correctAnswers
+                                },
+                                {
+                                    x: 'Wrong Answers',
+                                    y: this.state.questions.length - this.state.correctAnswers
+                                }
+                                ]}
+                                
+                            />
+
+                            <div className="startAgainSection">
+                                <a className="nextButton" onClick={this.startOver.bind(this)}>Start Again</a>
+                            </div>
+
+                        </div>;
 
         return (
            <div>
-               <div className={this.state.isTestComplete ? 'quizBox shadow flex flexColumn hidden' : 'quizBox shadow flex flexColumn '}>
-                    <div className="flexGrow1 rightContent">
-                        <Timer completeTest={this.completeTest.bind(this)} />
-                    </div>
-
-                    <div className="flexGrow4 flex flexColumnCenter">
-                        <Question selected={this.state.userAnswers[this.state.currentQuestion-1]} answerSelected={this.answerSelected.bind(this)} data={this.state.questions[this.state.currentQuestion-1]} />
-                    </div>
-
-                    <div className="flexGrow1 rightContent">
-                        {(this.state.currentQuestion > 1) ? <a className="nextButton" onClick={this.previousQuestion.bind(this)}>Previous</a> : ''}
-                        {(this.state.currentQuestion < 3) ? <a className="nextButton" onClick={this.nextQuestion.bind(this)}>Next</a> : ''}
-                        {(this.state.currentQuestion === 3) ? <a className="nextButton" onClick={this.completeTest.bind(this)}>Submit</a> : ''}
-                    </div>
-
-                    <SnackBar show={this.state.requiredError} timer={3000}>Please answer the current question to continue.</SnackBar>
-                </div>
-                <div className={this.state.isTestComplete ? 'quizBox shadow flex flexColumn' : 'quizBox shadow flex flexColumn hidden'} >
-                    <h4 className="resultTitle">Quiz Results</h4>
-
-                    <h5 className="sectionTitle">Question details</h5>
-
-                    <div className="questionResultBlock">
-                       {resultSet}
-                    </div>
-
-                    <div className="flex flexRow">
-                        <div className="infoPanel">
-                            <p className="infoTitle">No. of Questions</p>
-                            <p className="infoText">{this.state.questions.length}</p>
-                        </div>
-                        <div className="infoPanel">
-                            <p className="infoTitle">No. of Correct Answers</p>
-                            <p className="infoText">{this.state.correctAnswers}</p>
-                        </div>
-                        <div className="infoPanel">
-                            <p className="infoTitle">No. of Wrong Answers</p>
-                            <p className="infoText">{this.state.questions.length - this.state.correctAnswers}</p>
-                        </div>
-                    </div>
-                </div>
+                {this.state.isTestComplete ? result : quiz};
            </div>
         )
     }

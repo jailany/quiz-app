@@ -6,7 +6,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLoggedIn : true
+      isLoggedIn : false
     }
   }
 
@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        {(this.state.isLoggedIn) ? <QuizArea /> : <LoginArea login={this.loginUser.bind(this)} />}
+        {(this.state.isLoggedIn) ? <QuizArea logout={this.logoutUser.bind(this)} /> : <LoginArea login={this.loginUser.bind(this)} />}
       </div>
     );
   }

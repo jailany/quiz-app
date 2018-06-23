@@ -8,7 +8,7 @@ class QuizArea extends Component{
     render() {
         return (
             <div className="quizArea">
-                <Header/>
+                <Header logout={this.props.logout}/>
                 <QuizBox />
             </div>
         )
