@@ -8,18 +8,37 @@ class Question extends Component{
         super();
 
         this.state = {
-            invalidAnswer : false
+            invalidAnswer : false,
+            errorText : ''
         }
     }
 
     validateAnswer(answerId) {
         if(this.props.data.answer_id === answerId){
-            this.setState({invalidAnswer : false});
+            this.setState({invalidAnswer : true, errorText : 'Answer is correct.'});
+            this.timeoutForSnack();
             return true;
         } else {
-            this.setState({invalidAnswer : true});
+            this.setState({invalidAnswer : true, errorText : 'Answer is Incorrect.'});
+            this.timeoutForSnack();
             return false;
         }
+        
+    }
+
+    timeoutForSnack() {
+        const _this = this;
+        _this.timeout = setTimeout(() => {
+            this.setState({invalidAnswer : false, errorText : ''});
+        }, 1500);
+    }
+
+    stopTimeout() {
+        clearTimeout(this.timeout);
+    }
+
+    componentWillUnmount() {
+        this.stopTimeout();
     }
 
     render() {
@@ -36,7 +55,7 @@ class Question extends Component{
                 <div className="answersContainer">
                     {answersItems}
                 </div>
-                <SnackBar show={this.state.invalidAnswer} timer={2000}>Invalid Answer.</SnackBar>
+                <SnackBar show={this.state.invalidAnswer} timer={1500}>{this.state.errorText}</SnackBar>
             </div>
         )
     }
